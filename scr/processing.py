@@ -11,3 +11,16 @@ def filter_by_state(list_dict: list, option_value: str = "EXECUTED") -> list:
             new_list.append(dictionary)
 
     return new_list
+
+
+def sort_by_date(list_dict: list, sorting_order: bool = True) -> list:
+    """сортирует принимаемый список по дате(по умолчанию убывание)"""
+    from datetime import datetime
+
+    sorted_list_dict = sorted(
+        list_dict,
+        key=lambda x: datetime.fromisoformat(x["date"]),
+        reverse=not sorting_order,
+    )
+
+    return sorted_list_dict
