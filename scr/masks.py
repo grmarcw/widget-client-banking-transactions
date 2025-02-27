@@ -20,19 +20,11 @@ def get_mask_account(account_number: str) -> str:
     Пример: 73654108430135874305 -> **4305
     """
 
-    musk_account_number = []
-
-    # убираем все символы, кроме последних шести
-    for index, digit in enumerate(reversed(list(account_number))):
-        if index < 4:
-            musk_account_number.append(digit)
-
-    # добавляем звездочки в начало маскировки
-    musk_account_number.append("**")
-
-    if 20 < len(account_number) < 20:
-        return "Номер счета состоит из 20 цифр"
-    elif account_number.isdigit() is False:
-        return "Номер счета может состоять только из цифр"
+    if account_number == '':
+        return 'Номер счета состоит из 20 цифр'
+    elif not account_number.isdigit():
+        return 'Номер счета может состоять только из цифр'
+    elif len(account_number) != 20:
+        return 'Номер счета состоит из 20 цифр'
     else:
-        return "".join(reversed(musk_account_number))
+        return f'**{account_number[-4:]}'
