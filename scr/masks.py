@@ -1,29 +1,24 @@
 def get_mask_card_number(card_number: str) -> str:
-    """маскирует номер банковской карты"""
+    """
+    маскирует номер банковской карты
+    Пример: 8912292571489222 -> 8912 29** **** 9222
+    """
 
-    mask_card_number = []
-
-    four_digits_to_divide_blocks = 0
-
-    # делим номер карты на 4 блока
-    for digit in card_number:
-        four_digits_to_divide_blocks += 1
-        if four_digits_to_divide_blocks % 4 == 0:
-            mask_card_number.append(digit)
-            mask_card_number.append(" ")
-        else:
-            mask_card_number.append(digit)
-
-    # маскируем часть номера карты
-    for index, digit in enumerate(mask_card_number):
-        if index < 14 and index > 6 and digit != " ":
-            mask_card_number[index] = "*"
-
-    return "".join(mask_card_number)
+    if len(card_number) < 16 or len(card_number) > 16:
+        return "Номер карты состоит из 16 цифр."
+    elif card_number.isdigit() is False:
+        return "Номер карты состоит только из цифр"
+    else:
+        return (
+            f"{card_number[:4]} {card_number[4:6]}** **** {card_number[-4:]}"
+        )
 
 
 def get_mask_account(account_number: str) -> str:
-    """принимает на вход номер счета и возвращает замаскированный номер"""
+    """
+    принимает на вход номер счета и возвращает замаскированный номер
+    Пример: 73654108430135874305 -> **4305
+    """
 
     musk_account_number = []
 
@@ -35,4 +30,9 @@ def get_mask_account(account_number: str) -> str:
     # добавляем звездочки в начало маскировки
     musk_account_number.append("**")
 
-    return "".join(reversed(musk_account_number))
+    if 20 < len(account_number) < 20:
+        return "Номер счета состоит из 20 цифр"
+    elif account_number.isdigit() is False:
+        return "Номер счета может состоять только из цифр"
+    else:
+        return "".join(reversed(musk_account_number))
