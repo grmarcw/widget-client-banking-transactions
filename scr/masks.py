@@ -20,11 +20,11 @@ def get_mask_account(account_number: str) -> str:
     Пример: 73654108430135874305 -> **4305
     """
 
-    if account_number == '':
-        return 'Номер счета состоит из 20 цифр'
+    if account_number == "":
+        return "Номер счета состоит из 20 цифр"
     elif not account_number.isdigit():
-        return 'Номер счета может состоять только из цифр'
+        return "Номер счета может состоять только из цифр"
     elif len(account_number) != 20:
-        return 'Номер счета состоит из 20 цифр'
+        return "Номер счета состоит из 20 цифр"
     else:
-        return f'**{account_number[-4:]}'
+        return f"**{account_number[-4:]}"
