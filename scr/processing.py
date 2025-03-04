@@ -22,7 +22,7 @@ def sort_by_date(list_dict: list, is_sorting_order: bool = True) -> list:
     sorted_list_dict = sorted(
         list_dict,
         key=lambda x: datetime.fromisoformat(x["date"]),
-        reverse=not is_sorting_order,
+        reverse=is_sorting_order,
     )
 
     return sorted_list_dict
