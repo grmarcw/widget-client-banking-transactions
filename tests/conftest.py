@@ -24,4 +24,9 @@ def dict_list() -> list:
             "state": "CANCELED",
             "date": "2018-10-14T08:21:33.419441",
         },
+        {
+            "id": 594444489,
+            "state": "EXECUTED",
+            "date": "2018-10-14T08:21:33.419441",
+        },
     ]
