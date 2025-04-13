@@ -29,7 +29,7 @@ pytest
 ```
 для формирования отчета покрытия тестами в формате HTML :
 ```
-pytest --cov=scr --cov-report=html
+pytest --cov=. --cov-report=html
 ```
 для открытия отчета покрытия тестами в формате HTML:
 ```
