@@ -1,36 +1,88 @@
+import pytest
+
 import generators.generators
 
 
+@pytest.mark.parametrize(
+    "currency, result",
+    [
+        (
+            "RUS",
+            [
+                {
+                    "id": 123456789,
+                    "state": "EXECUTED",
+                    "date": "2029-04-04T23:20:05.206878",
+                    "operationAmount": {
+                        "amount": "79114.93",
+                        "currency": {"name": "RUS", "code": "RUS"},
+                    },
+                    "description": "Перевод организации",
+                    "from": "Счет 19708645243283128599",
+                    "to": "Счет 75651667383060281234",
+                },
+                {
+                    "id": 987654321,
+                    "state": "EXECUTED",
+                    "date": "2018-06-30T02:08:58.425572",
+                    "operationAmount": {
+                        "amount": "9824.07",
+                        "currency": {"name": "RUS", "code": "RUS"},
+                    },
+                    "description": "Перевод организации",
+                    "from": "Счет 75106830611234567890",
+                    "to": "Счет 11776614600987654321",
+                },
+            ],
+        ),
+        (
+            "USD",
+            [
+                {
+                    "id": 939719570,
+                    "state": "EXECUTED",
+                    "date": "2018-06-30T02:08:58.425572",
+                    "operationAmount": {
+                        "amount": "9824.07",
+                        "currency": {"name": "USD", "code": "USD"},
+                    },
+                    "description": "Перевод организации",
+                    "from": "Счет 75106830613657916952",
+                    "to": "Счет 11776614605963066702",
+                },
+                {
+                    "id": 142264268,
+                    "state": "EXECUTED",
+                    "date": "2019-04-04T23:20:05.206878",
+                    "operationAmount": {
+                        "amount": "79114.93",
+                        "currency": {"name": "USD", "code": "USD"},
+                    },
+                    "description": "Перевод со счета на счет",
+                    "from": "Счет 19708645243227258542",
+                    "to": "Счет 75651667383060284188",
+                },
+            ],
+        ),
+        ("KZ", []),
+    ],
+)
 def test_filter_by_currency(
-    dictionary_list: list, filter_rus: list, filter_usd: list
+    dictionary_list: list, currency: str, result: list
 ) -> None:
-    rus = []
-    usd = []
-    kz = []
-    wtf: list = []
+    new_dict_list = []
+    none_list = []
 
     for element in generators.generators.filter_by_currency(
-        dictionary_list, "RUS"
+        dictionary_list, currency
     ):
-        rus.append(element)
+        new_dict_list.append(element)
 
-    for element in generators.generators.filter_by_currency(
-        dictionary_list, "USD"
-    ):
-        usd.append(element)
+    for element in generators.generators.filter_by_currency([], currency):
+        none_list.append(element)
 
-    for element in generators.generators.filter_by_currency(
-        dictionary_list, "KZ"
-    ):
-        kz.append(element)
-
-    for element in generators.generators.filter_by_currency([], "KZ"):
-        kz.append(element)
-
-    assert rus == filter_rus
-    assert usd == filter_usd
-    assert kz == []
-    assert wtf == []
+    assert new_dict_list == result
+    assert none_list == []
 
 
 def test_transaction_descriptions(dictionary_list: list) -> None:
