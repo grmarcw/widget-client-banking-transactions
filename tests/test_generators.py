@@ -1,6 +1,6 @@
 import pytest
 
-import generators.generators
+from scr import generators
 
 
 @pytest.mark.parametrize(
@@ -73,12 +73,12 @@ def test_filter_by_currency(
     new_dict_list = []
     none_list = []
 
-    for element in generators.generators.filter_by_currency(
+    for element in generators.filter_by_currency(
         dictionary_list, currency
     ):
         new_dict_list.append(element)
 
-    for element in generators.generators.filter_by_currency([], currency):
+    for element in generators.filter_by_currency([], currency):
         none_list.append(element)
 
     assert new_dict_list == result
@@ -95,12 +95,12 @@ def test_transaction_descriptions(dictionary_list: list) -> None:
     test_description_list = []
     test_description_list_part_two = []
 
-    for elem in generators.generators.transaction_descriptions(
+    for elem in generators.transaction_descriptions(
         dictionary_list
     ):
         test_description_list.append(elem)
 
-    for elem in generators.generators.transaction_descriptions([]):
+    for elem in generators.transaction_descriptions([]):
         test_description_list_part_two.append(elem)
 
     assert test_description_list == correct_description_list
@@ -108,7 +108,7 @@ def test_transaction_descriptions(dictionary_list: list) -> None:
 
 
 def test_card_number_generator() -> None:
-    card_number = generators.generators.card_number_generator(0, 4)
+    card_number = generators.card_number_generator(0, 4)
     assert next(card_number) == "0000 0000 0000 0000"
     assert next(card_number) == "0000 0000 0000 0001"
     assert next(card_number) == "0000 0000 0000 0002"
