@@ -1,7 +1,17 @@
+from functools import wraps
+
+
 def log(filename=None):
+    """
+    декоратор логирует в файл/консоль:
+    начало работы функции
+    результат функции/сообщение об ошибке
+    завершение работы функции
+    """
     def decorator(function):
+        @wraps(function)
         def inner(*args, **kwargs):
-            start = f'Начало работы функции {function.__name__}'
+            start = f"Начало работы функции {function.__name__}"
             finish = f"Работа функции {function.__name__} завершена"
             try:
                 func = function(*args, **kwargs)
